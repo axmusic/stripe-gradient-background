@@ -16,16 +16,16 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thelevicole/stripe-gradient.git"
+    "url": "git+https://github.com/axmusic/stripe-gradient-background.git"
   },
   "author": {
     "name": "Levi Cole",
     "email": "dev@thelevicole.com"
   },
   "bugs": {
-    "url": "https://github.com/thelevicole/stripe-gradient/issues"
+    "url": "https://github.com/axmusic/stripe-gradient-background/issues"
   },
-  "homepage": "https://thelevicole.com/stripe-gradient/",
+  "homepage": "https://github.com/axmusic/stripe-gradient-background",
   "devDependencies": {
     "laravel-mix": "^6.0.43"
   },
