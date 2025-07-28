@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stripe Gradient Animation Example</title>
+  <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+  <style>
+    html,
+    * {
+      font-family: 'Inter';
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: #fafafa;
+      line-height: 1.6;
+    }
+
+    .lead {
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+    }
+
+    canvas#demo {
+      width: 100vw;
+      height: 99.2vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <canvas id="demo"></canvas>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+  <script src="./dist/stripe-gradient.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      $('#demo').gradient({
+        colors: ['#a960ee', '#ff333d', '#90e0ff', '#ffcb57'],
+        speed: 100,
+        amplitude: 300,
+      });
+
+    })();
+  </script>
+</body>
+
+</html>
