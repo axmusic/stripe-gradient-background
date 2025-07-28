@@ -34,6 +34,8 @@ class Gradient {
 
         loadedClass: 'is-loaded',
         speed: 100,
+        randomSeed: true,
+        seed: 0,
 
         zoom: 1, // @todo not used.
         rotation: 0, // @todo not used.
@@ -113,6 +115,10 @@ class Gradient {
      */
     constructor(options) {
         this.options = options;
+
+        const randomSeedEnabled = this.getOption('randomSeed');
+
+        this.seed = randomSeedEnabled ? Math.floor(Math.random() * 10000) : this.getOption('seed') || 0;
 
         // Find and store the canvas element.
         this.setCanvas(this.findCanvas(this.getOption('canvas')));
