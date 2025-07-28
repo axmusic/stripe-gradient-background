@@ -1,5 +1,5 @@
 {
-  "name": "@thelevicole/stripe-gradient",
+  "name": "@axmusic/stripe-gradient-background",
   "version": "1.0.0",
   "description": "A reverse engineered, and simplified javascript library to replicate the animated Stripe gradients.",
   "main": "dist/stripe-gradient.js",
