@@ -34,8 +34,9 @@ class Gradient {
 
         loadedClass: 'is-loaded',
         speed: 100,
-        randomSeed: true,
-        seed: 0,
+        randomSeed: false,
+        seed: 9,
+        hoverPlay: false,
 
         zoom: 1, // @todo not used.
         rotation: 0, // @todo not used.
@@ -85,7 +86,7 @@ class Gradient {
      * @private
      */
     _flags = {
-        playing: true // autoplay on init
+        playing: false // autoplay on init
     };
 
     /**
@@ -249,7 +250,8 @@ class Gradient {
     }
 
     animate(event = 0) {
-        const shouldSkipFrame = !!window.document.hidden || (!this.getFlag('playing') || parseInt(event, 10) % 2 === 0);
+        const shouldSkipFrame = !!document.hidden || !this.getFlag('playing') || (event > 0 && parseInt(event, 10) % 2 === 0);
+
         let lastFrame = this.getFlag('lastFrame', 0);
 
         if (!shouldSkipFrame) {
@@ -282,9 +284,22 @@ class Gradient {
      * Start or continue the animation.
      */
     play() {
-        requestAnimationFrame(this.animate.bind(this));
-        this.setFlag('playing', true);
+        if (!this.getFlag('playing')) {
+            this.setFlag('playing', true);
+            requestAnimationFrame(this.animate.bind(this));
+        }
     }
+
+
+    /**
+    play() {
+        if (!this.getFlag('playing')) {
+            this.setFlag('playing', true);
+        }
+        requestAnimationFrame(this.animate.bind(this));
+    }
+    **/
+
 
     disconnect() {
         if (this.scrollObserver) {
@@ -417,7 +432,35 @@ class Gradient {
 
         this.initMesh();
         this.resize();
-        requestAnimationFrame(this.animate.bind(this));
+        const canvas = this.getCanvas();
+        const isHoverPlay = this.getOption('hoverPlay');
+
+        if (isHoverPlay) {
+            this.setFlag('playing', true);
+
+            let frameCount = 0;
+            const preloadFrames = 2;
+
+            const preload = (timestamp) => {
+                if (frameCount < preloadFrames) {
+                    this.animate(timestamp);
+                    frameCount++;
+                    requestAnimationFrame(preload);
+                } else {
+                    if (!canvas.matches(':hover')) {
+                        this.pause();
+                    }
+                }
+            };
+
+            requestAnimationFrame(preload);
+
+            canvas.addEventListener('mouseenter', () => this.play());
+            canvas.addEventListener('mouseleave', () => this.pause());
+        } else {
+            // ✅ Autoplay if hoverPlay is false
+            this.play();
+        }
         window.addEventListener('resize', this.resize);
     }
 
